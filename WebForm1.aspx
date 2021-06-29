@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <script src="js/codigo.js"></script>
     <script src="js/sweetalert2.all.min.js"></script>
@@ -39,6 +39,18 @@
             </asp:GridView>
             <br />
             <asp:Button ID="Button2" runat="server" Text="Button" />
+            <br />
+            <br />
+            <br />
+        </div>
+        <div>
+            INSERTAR EMPLEADO
+            <br />
+            <asp:TextBox ID="txbID" runat="server"></asp:TextBox>
+            <br />
+            <asp:TextBox ID="txbNombre" runat="server"></asp:TextBox>
+            <br />
+            <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Button" />
         </div>
     </form>
 </body>

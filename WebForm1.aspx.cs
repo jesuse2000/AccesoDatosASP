@@ -116,7 +116,7 @@ namespace WebPruebaAcceso {
                     GetType(), "messg77", "msgbox3(`Incorrecto`,`" + m + "`,`error`)", true);
                 }
 
-                
+
 
             } else {
                 Page.ClientScript.RegisterStartupScript(
@@ -134,11 +134,41 @@ namespace WebPruebaAcceso {
                 ListBox1.Items.Add(registro[0] + " -- " + registro[1]);
             }*/
 
-            for (int w = temporal.Tables[0].Rows.Count-1; w>=0; w--) {
+            for (int w = temporal.Tables[0].Rows.Count - 1; w >= 0; w--) {
                 registro = temporal.Tables[0].Rows[w];
                 ListBox1.Items.Add(registro[0] + " -- " + registro[1]);
             }
 
+
+        }
+
+        protected void Button3_Click(object sender, EventArgs e) {
+            SqlParameter uno = new SqlParameter("id", SqlDbType.Int);
+            SqlParameter dos = new SqlParameter("nombre", SqlDbType.NChar, 50);
+            uno.Value = txbID.Text;
+            dos.Value = txbNombre.Text;
+
+            string sentencia = "Insert into EMPLEADO values(@id,@nombre);";
+            TextBox2.Text = sentencia;
+            SqlConnection t = null;
+            string m = "";
+            bool resp = false;
+            t = objAcceso.AbrirConexion(ref m);
+
+            objAcceso.ModificaBDInsegura(sentencia, t, ref m);
+
+            if (resp) {
+                Page.ClientScript.RegisterStartupScript(
+                GetType(), "messg3B5", "msgbox3('Correcto','" + m + "','success')", true);
+                TextBox2.Text = m;
+
+            } else {
+                Page.ClientScript.RegisterStartupScript(
+                GetType(), "messg3B85", "msgbox3(`Incorrrecto`,`" + m + "`,`error`)", true);
+                //TextBox2.Text = m;
+
+
+            }
 
         }
     }
