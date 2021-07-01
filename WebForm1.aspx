@@ -51,6 +51,27 @@
             <asp:TextBox ID="txbNombre" runat="server"></asp:TextBox>
             <br />
             <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Button" />
+            <br />
+            <br />
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+            <asp:TextBox ID="txbIdprod" runat="server"></asp:TextBox>
+            <br />
+            <br />
+            <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+            <asp:TextBox ID="txbDescProd" runat="server"></asp:TextBox>
+            <br />
+            <br />
+            <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
+            <asp:TextBox ID="txbCategoProd" runat="server"></asp:TextBox>
+            <br />
+            <br />
+            <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
+            <asp:TextBox ID="txbPrecProd" runat="server"></asp:TextBox>
+            <br />
+            <br />
+            <asp:Button ID="btnProd" runat="server" OnClick="btnProd_Click" Text="Button" />
+            <br />
+            <br />
         </div>
     </form>
 </body>

@@ -68,10 +68,10 @@ namespace WebPruebaAcceso {
             string m = "";
             cnab = objAcceso.AbrirConexion(ref m);
             if (cnab != null) {
-                Page.ClientScript.RegisterStartupScript(
-                 GetType(), "messg3B", "msgbox3('Correcto','" + m + "','success')", true);
+                //Page.ClientScript.RegisterStartupScript(
+                 //GetType(), "messg3B", "msgbox3('Correcto','" + m + "','success')", true);
 
-                caja = objAcceso.ConsultarReader("select * from EMPLEAD", cnab, ref m);
+                caja = objAcceso.ConsultarReader("select * from EMPLEADO", cnab, ref m);
                 if (caja != null) {
                     //la consulta es correcta y se nuestrab los datos
                     ListBox1.Items.Clear();
@@ -143,19 +143,28 @@ namespace WebPruebaAcceso {
         }
 
         protected void Button3_Click(object sender, EventArgs e) {
+            //declaracion de parámetros
             SqlParameter uno = new SqlParameter("id", SqlDbType.Int);
             SqlParameter dos = new SqlParameter("nombre", SqlDbType.NChar, 50);
+
+            //dando valores a los parametros
             uno.Value = txbID.Text;
             dos.Value = txbNombre.Text;
 
+            //establecer la direccion de los parametros
+            uno.Direction = ParameterDirection.Input;
+            dos.Direction = ParameterDirection.Input;
+
             string sentencia = "Insert into EMPLEADO values(@id,@nombre);";
-            TextBox2.Text = sentencia;
+            //TextBox2.Text = sentencia;
             SqlConnection t = null;
             string m = "";
             bool resp = false;
             t = objAcceso.AbrirConexion(ref m);
 
-            objAcceso.ModificaBDInsegura(sentencia, t, ref m);
+
+            //objAcceso.ModificaBDInsegura(sentencia, t, ref m);
+            resp = objAcceso.InsertaEmpleadoconPar(sentencia, t, ref m, uno, dos);
 
             if (resp) {
                 Page.ClientScript.RegisterStartupScript(
@@ -170,6 +179,62 @@ namespace WebPruebaAcceso {
 
             }
 
+        }
+
+        protected void btnProd_Click(object sender, EventArgs e) {
+
+            SqlParameter[] misparametros = new SqlParameter[4];
+
+            misparametros[0] = new SqlParameter("Idprod", SqlDbType.Int);
+            misparametros[0].Value = txbIdprod.Text;
+            misparametros[0].Direction = ParameterDirection.Input;
+
+            misparametros[1] = new SqlParameter {
+                ParameterName = "Descri",
+                SqlDbType = SqlDbType.NVarChar,
+                Size = 50,
+                Direction = ParameterDirection.Input,
+                Value = txbDescProd.Text
+            };
+
+            misparametros[2] = new SqlParameter {
+                ParameterName = "Cate",
+                SqlDbType = SqlDbType.NVarChar,
+                Size = 15,
+                Direction = ParameterDirection.Input,
+                Value = txbCategoProd.Text
+            };
+
+            misparametros[3] = new SqlParameter {
+                ParameterName = "Precio",
+                SqlDbType = SqlDbType.Float,
+                Direction = ParameterDirection.Input,
+                Value = txbPrecProd.Text
+            };
+
+            string sentencia = "Insert into Productos values(@Idprod, @Descri, @Cate, @Precio);";
+            //TextBox2.Text = sentencia;
+            SqlConnection t = null;
+            string m = "";
+            bool resp = false;
+            t = objAcceso.AbrirConexion(ref m);
+
+
+            //objAcceso.ModificaBDInsegura(sentencia, t, ref m);
+            resp = objAcceso.ModificaBDunPocoMasSegura(sentencia, t, ref m, misparametros);
+
+            if (resp) {
+                Page.ClientScript.RegisterStartupScript(
+                GetType(), "messg3B5", "msgbox3('Correcto','" + m + "','success')", true);
+                TextBox2.Text = m;
+
+            } else {
+                Page.ClientScript.RegisterStartupScript(
+                GetType(), "messg3B85", "msgbox3(`Incorrrecto`,`" + m + "`,`error`)", true);
+                //TextBox2.Text = m;
+
+
+            }
         }
     }
 }
